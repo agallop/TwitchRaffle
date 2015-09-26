@@ -1,0 +1,63 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/secondaryColor">
+
+    <TextView
+        android:textSize="20dp"
+        android:textColor="@color/primaryColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prompt"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:id="@+id/textEntry"
+        android:textColor="@color/primaryColor"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addButton"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/primaryColor"
+        android:textColor="@color/secondaryColor"/>
+
+    <Button
+        android:id="@+id/raffleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/draw"
+        android:background="@color/tertiaryColor"
+        android:textColor="@color/quaternaryColor"/>
+</LinearLayout>
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        android:layout_marginTop="25dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/quaternaryColor"
+        android:textColor="@color/quinaryColor"/>
+</LinearLayout>
+

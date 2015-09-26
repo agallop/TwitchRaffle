@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#003366</color>
+    <color name="secondaryColor">#e7ebf0</color>
+    <color name="tertiaryColor">#660f57</color>
+    <color name="quaternaryColor">#5b7290</color>
+    <color name="quinaryColor">#663366</color>
+</resources>

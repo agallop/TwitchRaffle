@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TwitchRaffle</string>
+
+    <string name="prompt">Enter the twitch username below!</string>
+    <string name="addButton">Add to raffle</string>
+    <string name="draw">Pick a winner!</string>
+    <string name="reset">Reset Raffle?</string>
+
+    <string name="noNameError">Please enter a username!</string>
+    <string name="noContestantError">Raffle is Empty!</string>
+
+    <string name ="confirm">Are you sure?</string>
+    <string name="reseted">Raffle has been emptied!</string>
+</resources>
