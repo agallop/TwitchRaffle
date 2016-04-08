@@ -1,5 +1,6 @@
 package com.bignerdranch.android.twitchraffle;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +29,8 @@ public class MainActivity extends ActionBarActivity {
     private Button resetButton;
     //EditText to input the name to add to the raffle
     private EditText textEntry;
+    //Button to change to ListActivity
+    private Button listButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        raffleButton = (Button) findViewById(R.id.raffleButton);
+        raffleButton = (Button) findViewById(R.id.raffle_button);
         raffleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v ) {
@@ -82,7 +85,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        resetButton = (Button) findViewById(R.id.resetButton);
+        resetButton = (Button) findViewById(R.id.reset_button);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +98,19 @@ public class MainActivity extends ActionBarActivity {
                     resetButtons();
                     resetButton.setText(R.string.confirm);
                 }
+            }
+        });
+
+        listButton = (Button) findViewById(R.id.list_button);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                intent.putExtra("User Count", contestants.size());
+                for(int i = 0; i < contestants.size(); i++){
+                    intent.putExtra("contestant" + i, contestants.get(i));
+                }
+                startActivityForResult(intent, 0);
             }
         });
     }
