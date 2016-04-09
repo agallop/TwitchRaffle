@@ -83,4 +83,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return mUsers.size();
     }
 
+    public String getItem(int index){ return mUsers.get(index); }
+
 }

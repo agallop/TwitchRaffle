@@ -45,8 +45,8 @@ public class MainActivity extends ActionBarActivity {
                 contestants.add(savedInstanceState.getString(i + ""));
             }
         }
-        textEntry = (EditText) findViewById(R.id.textEntry);
-        addButton = (Button) findViewById(R.id.addButton);
+        textEntry = (EditText) findViewById(R.id.text_entry);
+        addButton = (Button) findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,5 +148,16 @@ public class MainActivity extends ActionBarActivity {
     private void resetButtons(){
         raffleButton.setText(R.string.draw);
         resetButton.setText(R.string.reset);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 0) {
+            contestants = new ArrayList<String>();
+            int size = data.getIntExtra("User Count", 0);
+            for( int i = 0; i < size; i++){
+                contestants.add(data.getStringExtra("contestant" + i));
+            }
+        }
     }
 }
