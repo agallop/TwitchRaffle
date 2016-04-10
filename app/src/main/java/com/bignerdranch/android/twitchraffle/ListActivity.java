@@ -6,11 +6,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 
 public class ListActivity extends ActionBarActivity {
@@ -19,6 +25,12 @@ public class ListActivity extends ActionBarActivity {
     RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+    private Button undoButton;
+    //EditText to input the name to add to the raffle
+    private EditText textEntry;
+    //Button to add a name to the raffle
+    private Button addButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,32 @@ public class ListActivity extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MyAdapter(users);
         mRecyclerView.setAdapter(mAdapter);
+
+        undoButton = (Button) findViewById(R.id.undo_button);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mAdapter.undo()){
+                    Toast.makeText(getApplicationContext(), "Nothing to Undo", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        textEntry = (EditText) findViewById(R.id.text_entry);
+        addButton = (Button) findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(textEntry.getText().toString().equals("")){
+                    Toast.makeText(ListActivity.this, R.string.noNameError,Toast.LENGTH_SHORT ).show();
+                }
+                else{
+                    mAdapter.add(textEntry.getText().toString(), false);
+                    textEntry.setText("");
+                }
+            }
+        });
+
 
     }
 

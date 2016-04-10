@@ -2,6 +2,7 @@ package com.bignerdranch.android.twitchraffle;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 
 /**
  * Created by Anthony on 4/7/2016.
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<String> mUsers;
+    LinkedList<Pair<Boolean, String>> history;
 
 
     // Provide a reference to the views for each data item
@@ -35,18 +40,42 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    public void add(int position, String item) {
-        //Intentionally left blank
+    public void add(String user, Boolean undo) {
+        if(!undo){
+            history.push(new Pair<Boolean, String>(true, user));
+        }
+        mUsers.add(user);
+        Collections.sort(mUsers);
+        notifyDataSetChanged();
+    }
+    public boolean undo(){
+        if(history.isEmpty()){
+            return false;
+        } else {
+            Pair<Boolean, String> operation = history.pop();
+            if(operation.first){
+                remove(operation.second);
+            } else {
+                add(operation.second, true);
+            }
+            return true;
+        }
+    }
+    private void remove(String user){
+        mUsers.remove(user);
+        notifyDataSetChanged();
     }
 
     public void remove(int position) {
-        mUsers.remove(position);
+        String user = mUsers.remove(position);
+        history.push(new Pair<Boolean, String>(false, user));
         notifyDataSetChanged();
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(ArrayList<String > users) {
         mUsers = users;
+        history = new LinkedList<Pair<Boolean, String>>();
     }
 
     // Create new views (invoked by the layout manager)
