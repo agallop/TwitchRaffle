@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/primaryColor">
+    android:background="@color/primaryColor2">
 
     <TextView
         android:textSize="20dp"
-        android:textColor="@color/secondaryColor"
+        android:textColor="@color/secondaryColor2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/prompt"
@@ -18,7 +18,7 @@
         android:layout_margin="10dp"
         android:background="@color/secondaryColor"
         android:id="@+id/text_entry"
-        android:textColor="@color/tertiaryColor"
+        android:textColor="@color/tertiaryColor2"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         />
@@ -30,8 +30,8 @@
         android:text="@string/addButton"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@color/secondaryColor"
-        android:textColor="@color/tertiaryColor"/>
+        android:background="@color/secondaryColor2"
+        android:textColor="@color/tertiaryColor2"/>
 
     <Button
         android:id="@+id/raffle_button"
@@ -41,8 +41,8 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="@string/draw"
-        android:background="@color/secondaryColor"
-        android:textColor="@color/tertiaryColor"/>
+        android:background="@color/secondaryColor2"
+        android:textColor="@color/tertiaryColor2"/>
 
 
     <Button
@@ -53,8 +53,8 @@
         android:layout_marginTop="25dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@color/secondaryColor"
-        android:textColor="@color/tertiaryColor"/>
+        android:background="@color/secondaryColor2"
+        android:textColor="@color/tertiaryColor2"/>
 
     <Button
         android:id="@+id/list_button"
@@ -64,8 +64,7 @@
         android:layout_marginTop="25dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@color/secondaryColor"
-        android:textColor="@color/tertiaryColor"/>
-
+        android:background="@color/secondaryColor2"
+        android:textColor="@color/tertiaryColor2"/>
 </LinearLayout>
 

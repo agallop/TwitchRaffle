@@ -47,17 +47,32 @@
         android:text="@string/draw"
         android:background="@color/tertiaryColor"
         android:textColor="@color/quaternaryColor"/>
-</LinearLayout>
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
     <Button
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reset"
-        android:layout_marginTop="25dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@color/quaternaryColor"
-        android:textColor="@color/quinaryColor"/>
+        android:background="@color/primaryColor"
+        android:textColor="@color/secondaryColor"/>
+        <Button
+            android:id="@+id/list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list"
+            android:layout_marginLeft="25dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/tertiaryColor"
+            android:textColor="@color/quaternaryColor"/>
+    </LinearLayout>
 </LinearLayout>
 
