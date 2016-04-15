@@ -22,6 +22,8 @@ import java.util.Random;
 
 public class MainActivity extends ActionBarActivity {
 
+    private static String TAG = MainActivity.class.getSimpleName();
+
     //holds the name of contestants
     //contestests don't have to be distinct, so multiple chances to win is possible
     private ArrayList<String> contestants;
@@ -52,8 +54,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         int size = 0;
-        theme = 0;
-        themeCount = R.integer.theme_count;
+        themeCount = getResources().getInteger(R.integer.theme_count);
+        Log.d(TAG, "Theme Count: " + themeCount);
         masterLayout = (LinearLayout) findViewById(R.id.master_layout);
         information = (TextView) findViewById(R.id.information);
 
@@ -63,6 +65,9 @@ public class MainActivity extends ActionBarActivity {
             for (int i = 0; i < size; i++) {
                 contestants.add(savedInstanceState.getString(i + ""));
             }
+            theme = savedInstanceState.getInt("theme");
+        } else {
+            theme = 0;
         }
         textEntry = (EditText) findViewById(R.id.text_entry);
         addButton = (Button) findViewById(R.id.add_button);
@@ -125,6 +130,7 @@ public class MainActivity extends ActionBarActivity {
                 for (int i = 0; i < contestants.size(); i++) {
                     intent.putExtra("contestant" + i, contestants.get(i));
                 }
+                intent.putExtra("theme", theme);
                 startActivityForResult(intent, 0);
             }
         });
@@ -143,6 +149,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void toggleTheme() {
+        Log.d(TAG, "toggleTheme: " + theme);
 
         int primaryColor = getColorResourceByName("primary_color" + theme);
         int secondaryColor = getColorResourceByName("secondary_color" + theme);
@@ -186,6 +193,7 @@ public class MainActivity extends ActionBarActivity {
         for(int i = 0;i < contestants.size(); i++){
             savedInstanceState.putString(i + "", contestants.get(i));
         }
+        savedInstanceState.putInt("theme", theme);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Anthony on 4/7/2016.
@@ -21,6 +22,7 @@ import java.util.LinkedList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<String> mUsers;
     LinkedList<Pair<Boolean, String>> history;
+    int mPrimaryColor, mSecondaryColor, mTertiaryColor;
 
 
     // Provide a reference to the views for each data item
@@ -73,9 +75,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<String > users) {
+    public MyAdapter(ArrayList<String > users, int primaryColor,int secondaryColor,int tertiaryColor) {
         mUsers = users;
         history = new LinkedList<Pair<Boolean, String>>();
+        mPrimaryColor = primaryColor;
+        mSecondaryColor = secondaryColor;
+        mTertiaryColor = tertiaryColor;
     }
 
     // Create new views (invoked by the layout manager)
@@ -95,6 +100,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mName.setText(mUsers.get(position));
+        holder.mName.setBackgroundColor(mSecondaryColor);
+        holder.mName.setTextColor(mTertiaryColor);
 
         holder.mRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +111,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         });
 
+        holder.mLayout.setBackgroundColor(mSecondaryColor);
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -112,6 +122,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return mUsers.size();
     }
 
+
     public String getItem(int index){ return mUsers.get(index); }
+
+
 
 }

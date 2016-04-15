@@ -51,13 +51,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="25dp">
         <Button
             android:id="@+id/list_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/list"
-            android:layout_marginTop="25dp"
+
             android:paddingLeft="10dp"
             android:paddingRight="10dp"/>
         <Button
@@ -65,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/toggle"
-            android:layout_marginTop="25dp"
+            android:layout_marginLeft="20dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"/>
     </LinearLayout>

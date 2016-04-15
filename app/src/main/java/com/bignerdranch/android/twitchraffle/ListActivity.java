@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,10 +28,14 @@ public class ListActivity extends ActionBarActivity {
     private MyAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private Button undoButton;
+    private LinearLayout headLayout;
     //EditText to input the name to add to the raffle
     private EditText textEntry;
     //Button to add a name to the raffle
     private Button addButton;
+    private FrameLayout viewHolder;
+    private LinearLayout mDivider;
+    int theme;
 
 
     @Override
@@ -43,6 +49,7 @@ public class ListActivity extends ActionBarActivity {
                 users.add(intent.getStringExtra("contestant" + i));
             }
             Collections.sort(users);
+            theme = intent.getIntExtra("theme", 0);
         }
         else{
             int size = savedInstanceState.getInt("User Count");
@@ -50,14 +57,31 @@ public class ListActivity extends ActionBarActivity {
                 users.add(savedInstanceState.getString("contestant" + i));
             }
             Collections.sort(users);
+
+            theme = savedInstanceState.getInt("theme");
         }
         setContentView(R.layout.activity_list);
+
+        int primaryColor = getColorResourceByName("primary_color" + theme);
+        int secondaryColor = getColorResourceByName("secondary_color" + theme);
+        int tertiaryColor = getColorResourceByName("tertiary_color" + theme);
+
+        viewHolder = (FrameLayout)findViewById(R.id.view_holder);
+        viewHolder.setBackgroundColor(primaryColor);
+
+        mDivider = (LinearLayout) findViewById(R.id.divider);
+        mDivider.setBackgroundColor(secondaryColor);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MyAdapter(users);
+        mAdapter = new MyAdapter(users,primaryColor, secondaryColor,tertiaryColor);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setBackgroundColor(primaryColor);
+
+        headLayout = (LinearLayout) findViewById(R.id.head_layout);
+        headLayout.setBackgroundColor(primaryColor);
+
 
         undoButton = (Button) findViewById(R.id.undo_button);
         undoButton.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +92,15 @@ public class ListActivity extends ActionBarActivity {
                 }
             }
         });
+        undoButton.setBackgroundColor(secondaryColor);
+        undoButton.setTextColor(tertiaryColor);
+
+
 
         textEntry = (EditText) findViewById(R.id.text_entry);
+        textEntry.setBackgroundColor(secondaryColor);
+        textEntry.setTextColor(tertiaryColor);
+
         addButton = (Button) findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +115,13 @@ public class ListActivity extends ActionBarActivity {
             }
         });
 
+        addButton.setBackgroundColor(secondaryColor);
+        addButton.setTextColor(tertiaryColor);
+
+
+    }
+
+    private void setTheme(){
 
     }
 
@@ -115,6 +153,7 @@ public class ListActivity extends ActionBarActivity {
         for(int i = 0; i < users.size(); i++){
             savedInstanceState.putString("contestant" + i, mAdapter.getItem(i));
         }
+        savedInstanceState.putInt("theme", theme);
     }
 
     public void onBackPressed() {
@@ -125,5 +164,10 @@ public class ListActivity extends ActionBarActivity {
         }
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
+    }
+
+    private int getColorResourceByName(String aString) {
+        String packageName = getPackageName();
+        return getResources().getColor(getResources().getIdentifier(aString, "color", packageName));
     }
 }

@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primary_color0">#ffb7c5</color>
+    <integer name="theme_count">5</integer>
+
+
+
+    <color name="primary_color0">#000000</color>
     <color name="secondary_color0">#ffffff</color>
-    <color name="tertiary_color0">#ffb7c5</color>
+    <color name="tertiary_color0">#000000</color>
 
+    <color name="primary_color1">#003366</color>
+    <color name="secondary_color1">#e7ebf0</color>
+    <color name="tertiary_color1">#660f57</color>
 
-    <color name="primary_color1">#000000</color>
-    <color name="secondary_color1">#ffffff</color>
-    <color name="tertiary_color1">#000000</color>
+    <color name="primary_color2">#ffffff</color>
+    <color name="secondary_color2">#000000</color>
+    <color name="tertiary_color2">#ffffff</color>
 
-    <color name="primary_color2">#003366</color>
-    <color name="secondary_color2">#e7ebf0</color>
-    <color name="tertiary_color2">#660f57</color>
+    <color name="primary_color3">#ffb7c5</color>
+    <color name="secondary_color3">#ffffff</color>
+    <color name="tertiary_color3">#ffb7c5</color>
+
+    <color name="primary_color4">#cc6600</color>
+    <color name="secondary_color4">#ffffff</color>
+    <color name="tertiary_color4">#cc6600</color>
 </resources>

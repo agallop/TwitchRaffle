@@ -1,6 +1,5 @@
 <resources>
 
-    <integer name="theme_count">3</integer>
     <string name="app_name">TwitchRaffle</string>
 
     <string name="prompt">Enter the twitch username below!</string>
