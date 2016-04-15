@@ -1,4 +1,6 @@
 <resources>
+
+    <integer name="theme_count">3</integer>
     <string name="app_name">TwitchRaffle</string>
 
     <string name="prompt">Enter the twitch username below!</string>
@@ -13,6 +15,7 @@
     <string name="reseted">Raffle has been emptied!</string>
     <string name="title_activity_list">ListActivity</string>
     <string name="list">Raffle List</string>
+    <string name="toggle">Theme Switch</string>
 
     <string name="action_settings">Settings</string>
 

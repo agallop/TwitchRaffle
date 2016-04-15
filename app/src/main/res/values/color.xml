@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <int name="Theme Count">2</int>
-    <color name="primaryColor">#003366</color>
-    <color name="secondaryColor">#e7ebf0</color>
-    <color name="tertiaryColor">#660f57</color>
-    <color name="quaternaryColor">#5b7290</color>
-    <color name="quinaryColor">#663366</color>
-    <color name="primaryColor2">#000000</color>
-    <color name="secondaryColor2">#ffffff</color>
-    <color name="tertiaryColor2">#000000</color>
-    <color name="quaternaryColor2">#ffffff</color>
-    <color name="quinaryColo2r">#000000</color>
+
+    <color name="primary_color0">#ffb7c5</color>
+    <color name="secondary_color0">#ffffff</color>
+    <color name="tertiary_color0">#ffb7c5</color>
+
+
+    <color name="primary_color1">#000000</color>
+    <color name="secondary_color1">#ffffff</color>
+    <color name="tertiary_color1">#000000</color>
+
+    <color name="primary_color2">#003366</color>
+    <color name="secondary_color2">#e7ebf0</color>
+    <color name="tertiary_color2">#660f57</color>
 </resources>

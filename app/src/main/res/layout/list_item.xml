@@ -6,15 +6,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:background="@color/primaryColor">
+        android:paddingBottom="5dp">
 
         <LinearLayout
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/secondaryColor"
             android:orientation="horizontal"
             android:id="@+id/list_item_layout">
 
@@ -32,7 +30,6 @@
                 android:textSize="20dp"
                 android:gravity="center_horizontal"
                 android:text="Bah"
-                android:textColor="@color/tertiaryColor"
                 android:layout_weight="9"/>
         </LinearLayout>
     </LinearLayout>
