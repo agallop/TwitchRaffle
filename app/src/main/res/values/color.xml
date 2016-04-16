@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="theme_count">5</integer>
+    <integer name="theme_count">6</integer>
 
 
-
+    <string name="theme0">Dark Theme</string>
     <color name="primary_color0">#000000</color>
     <color name="secondary_color0">#ffffff</color>
     <color name="tertiary_color0">#000000</color>
-
+  
+    <string name="theme1"></string>
     <color name="primary_color1">#003366</color>
     <color name="secondary_color1">#e7ebf0</color>
     <color name="tertiary_color1">#660f57</color>
 
+    <string name="theme2">Inverted Dark  Theme</string>
     <color name="primary_color2">#ffffff</color>
     <color name="secondary_color2">#000000</color>
     <color name="tertiary_color2">#ffffff</color>
@@ -24,4 +26,10 @@
     <color name="primary_color4">#cc6600</color>
     <color name="secondary_color4">#ffffff</color>
     <color name="tertiary_color4">#cc6600</color>
+  
+    
+    <color name="primary_color5">#8b8682</color>
+    <color name="secondary_color5">#48e0d0</color>
+    <color name="tertiary_color5">#8b8682</color>
+   
 </resources>
