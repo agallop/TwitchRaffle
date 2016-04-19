@@ -6,3 +6,6 @@ It was another long PintOS day....Gotta get the 30-day challenge though
 
 4/17/2016
 ...PintOS
+
+4/18/2016
+hi
