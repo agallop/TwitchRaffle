@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -29,25 +31,34 @@ public class MainActivity extends ActionBarActivity {
     private ArrayList<String> contestants;
     //Key to find out how many contestants were saved in save in savedInstanceState
     private String COUNT_KEY = "COUNT";
-    //Button to add a name to the raffle
+
+
+    //LinearLayout (vertical) for whole activity
+    private LinearLayout masterLayout;
+    //Prompt for user
+    private TextView information;
+    //LinearLayout (horizontal) for inputs
+    private LinearLayout inputLayout;
+    //Just a pound sign
+    private TextView numberInfo;
+    //EditText to input the number of chances
+    private EditText numberEntry;
+    //EditText to input the name to add to the raffle
+    private EditText textEntry;
+    //Button to add a contestant
     private Button addButton;
     //button to draw a name from the raffle
     private Button raffleButton;
     //button to empty the raffle
     private Button resetButton;
-    //EditText to input the name to add to the raffle
-    private EditText textEntry;
     //Button to change to ListActivity
     private Button listButton;
-
+    //Toggles the theme of the app
     private Button toggleButton;
 
+    //variables to take keep track of the theme
     int theme;
     int themeCount;
-
-    private LinearLayout masterLayout;
-
-    private TextView information;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +69,9 @@ public class MainActivity extends ActionBarActivity {
         Log.d(TAG, "Theme Count: " + themeCount);
         masterLayout = (LinearLayout) findViewById(R.id.master_layout);
         information = (TextView) findViewById(R.id.information);
+        numberInfo = (TextView) findViewById(R.id.number_info);
+        inputLayout = (LinearLayout) findViewById(R.id.input_layout);
+
 
         contestants = new ArrayList<String>();
         if (savedInstanceState != null) {
@@ -69,18 +83,27 @@ public class MainActivity extends ActionBarActivity {
         } else {
             theme = 0;
         }
+        numberEntry = (EditText) findViewById(R.id.number_entry);
+
         textEntry = (EditText) findViewById(R.id.text_entry);
         addButton = (Button) findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (textEntry.getText().toString().equals("")) {
+                String contestant = textEntry.getText().toString();
+                int chances = Integer.valueOf(numberEntry.getText().toString());
+
+                if (contestant.equals("")) {
                     Toast.makeText(MainActivity.this, R.string.noNameError, Toast.LENGTH_SHORT).show();
+                } else if(chances == 0){
+                    Toast.makeText(MainActivity.this, contestant + " can't be added zero times!", Toast.LENGTH_SHORT).show();
                 } else {
-                    String added = textEntry.getText().toString();
-                    contestants.add(textEntry.getText().toString());
+                    for(int i = 0; i < chances; i++) {
+                            contestants.add(contestant);
+                    }
+                    Toast.makeText(MainActivity.this, contestant + " added " + chances + " times!", Toast.LENGTH_SHORT).show();
                     textEntry.setText("");
-                    Toast.makeText(MainActivity.this, added + " added!", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -148,19 +171,33 @@ public class MainActivity extends ActionBarActivity {
         toggleTheme();
     }
 
+    /* Changes the current theme */
     private void toggleTheme() {
-        Log.d(TAG, "toggleTheme: " + theme);
+        Log.d(TAG, "toggleTheme number: " + theme);
 
+        /*Gets theme name */
+        String name = getString(getResources().getIdentifier("theme" + theme, "string", getPackageName()));
+        Log.d(TAG, "toggleTheme name: " + name);
+
+        /* Gets the colors for the theme */
         int primaryColor = getColorResourceByName("primary_color" + theme);
         int secondaryColor = getColorResourceByName("secondary_color" + theme);
         int tertiaryColor = getColorResourceByName("tertiary_color" + theme);
 
+
+        /* Applying the theme START */
         masterLayout.setBackgroundColor(primaryColor);
 
+        inputLayout.setBackgroundColor(primaryColor);
+
         information.setTextColor(secondaryColor);
+        numberInfo.setTextColor(secondaryColor);
 
         textEntry.setBackgroundColor(secondaryColor);
         textEntry.setTextColor(tertiaryColor);
+
+        numberEntry.setBackgroundColor(secondaryColor);
+        numberEntry.setTextColor(tertiaryColor);
 
         addButton.setBackgroundColor(secondaryColor);
         addButton.setTextColor(tertiaryColor);
@@ -176,6 +213,10 @@ public class MainActivity extends ActionBarActivity {
 
         toggleButton.setBackgroundColor(secondaryColor);
         toggleButton.setTextColor(tertiaryColor);
+        /* applying the theme STOP */
+
+
+        Toast.makeText(MainActivity.this, "Theme changed to " + name, Toast.LENGTH_SHORT).show();
     }
 
 

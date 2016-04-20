@@ -4,30 +4,33 @@
     <integer name="theme_count">6</integer>
 
 
-    <string name="theme0">Dark Theme</string>
+    <string name="theme0">Dark</string>
     <color name="primary_color0">#000000</color>
     <color name="secondary_color0">#ffffff</color>
     <color name="tertiary_color0">#000000</color>
   
-    <string name="theme1"></string>
+    <string name="theme1">Warm</string>
     <color name="primary_color1">#003366</color>
     <color name="secondary_color1">#e7ebf0</color>
     <color name="tertiary_color1">#660f57</color>
 
-    <string name="theme2">Inverted Dark  Theme</string>
+    <string name="theme2">Inverted Dark</string>
     <color name="primary_color2">#ffffff</color>
     <color name="secondary_color2">#000000</color>
     <color name="tertiary_color2">#ffffff</color>
 
+    <string name="theme3">Cherry Blossom</string>
     <color name="primary_color3">#ffb7c5</color>
     <color name="secondary_color3">#ffffff</color>
     <color name="tertiary_color3">#ffb7c5</color>
 
+    <string name="theme4">Longhorn</string>
     <color name="primary_color4">#cc6600</color>
     <color name="secondary_color4">#ffffff</color>
     <color name="tertiary_color4">#cc6600</color>
-  
-    
+
+
+    <string name="theme5">Stony Bank</string>
     <color name="primary_color5">#8b8682</color>
     <color name="secondary_color5">#48e0d0</color>
     <color name="tertiary_color5">#8b8682</color>
