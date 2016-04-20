@@ -125,6 +125,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public String getItem(int index){ return mUsers.get(index); }
 
+   /* private sortByName(Arraylist<Pair<String, Integer>> list){
+      
+    } */
+    
+    private compareByChance(Pair<String, Integer> a, Pair <String, Integer> b) {
+      if(a.second == b.second)
+        return a.first.compareTo(b.first);
+      return(a.second - b.second);
+    }
 
 
 }
