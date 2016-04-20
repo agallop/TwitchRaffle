@@ -125,15 +125,40 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public String getItem(int index){ return mUsers.get(index); }
 
-   /* private sortByName(Arraylist<Pair<String, Integer>> list){
-      
-    } */
+    private void quickSort(Arraylist<Pair<String, Integer>> list, int lo, int hi, bool chance){
+      if(lo < hi){
+        int p; 
+        if(chance)
+          int p = partitionByChance(list, lo, hi);
+
+        quicksort(list, lo, p - 1);
+        quickSort(list, p + 1, hi);
+      }
+    } 
+    
+    private int partitionByChance(ArrayList<String, Integer> list, int lo, int hi) {
+      pivot = list.get(hi);
+      int i = lo;
+      for (int j = lo; j < hi; j++){
+        if(compareByChance(list.get(j), pivot) < 0){
+          Pair <String, Integer> holder = list.get(j);
+          list.set(list.get(i), j);
+          list.set(holder, i);
+          i = i + 1;
+        }
+      }
+      Pair<String, Integer> holder = list.get(i);
+      list.set(list.get(hi), i);
+      list.set(holder, hi);
+      return i;
+    }
     
     private compareByChance(Pair<String, Integer> a, Pair <String, Integer> b) {
       if(a.second == b.second)
         return a.first.compareTo(b.first);
       return(a.second - b.second);
     }
+    
 
 
 }
