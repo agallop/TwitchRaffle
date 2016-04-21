@@ -20,8 +20,8 @@ import java.util.List;
  * Created by Anthony on 4/7/2016.
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private ArrayList<String> mUsers;
-    LinkedList<Pair<Boolean, String>> history;
+    private ArrayList<Pair<String, Integer>> mUsers;
+   // LinkedList<Pair<Boolean, Pair<String, Integer>>> history;
     int mPrimaryColor, mSecondaryColor, mTertiaryColor;
 
 
@@ -33,28 +33,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ImageView mRemoveButton;
         public TextView mName;
         public LinearLayout mLayout;
+        public TextView mChances;
 
         public ViewHolder(View v) {
             super(v);
+            mChances = (TextView) v.findViewById(R.id.chances_text_view);
             mRemoveButton = (ImageView) v.findViewById(R.id.remove_button);
             mName = (TextView) v.findViewById(R.id.user_text_view);
             mLayout = (LinearLayout) v.findViewById(R.id.list_item_layout);
         }
     }
 
-    public void add(String user, Boolean undo) {
+   /* public void add(Pair<String, Integer> user, Boolean undo) {
         if(!undo){
-            history.push(new Pair<Boolean, String>(true, user));
+            history.push(new Pair<Boolean, Pair<String, Integer>>(true, user));
         }
         mUsers.add(user);
-        Collections.sort(mUsers);
+        quickSort(mUsers, 0, mUsers.size(), true);
         notifyDataSetChanged();
-    }
-    public boolean undo(){
+    } */
+  /*  public boolean undo(){
         if(history.isEmpty()){
             return false;
         } else {
-            Pair<Boolean, String> operation = history.pop();
+            Pair<Boolean, Pair<String, Integer>> operation = history.pop();
             if(operation.first){
                 remove(operation.second);
             } else {
@@ -62,22 +64,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
             return true;
         }
-    }
+    } */
     private void remove(String user){
         mUsers.remove(user);
         notifyDataSetChanged();
     }
 
     public void remove(int position) {
-        String user = mUsers.remove(position);
-        history.push(new Pair<Boolean, String>(false, user));
+     /*  String user = */ mUsers.remove(position);
+     //  history.push(new Pair<Boolean, String>(false, user));
         notifyDataSetChanged();
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<String > users, int primaryColor,int secondaryColor,int tertiaryColor) {
+    public MyAdapter(ArrayList<Pair<String, Integer>> users, int primaryColor,int secondaryColor,int tertiaryColor) {
         mUsers = users;
-        history = new LinkedList<Pair<Boolean, String>>();
+        quickSort(mUsers, 0, mUsers.size() - 1, true);
+       // history = new LinkedList<Pair<Boolean, String>>();
         mPrimaryColor = primaryColor;
         mSecondaryColor = secondaryColor;
         mTertiaryColor = tertiaryColor;
@@ -99,14 +102,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mName.setText(mUsers.get(position));
+        holder.mName.setText(mUsers.get(position).first);
         holder.mName.setBackgroundColor(mSecondaryColor);
         holder.mName.setTextColor(mTertiaryColor);
+
+        holder.mChances.setText(mUsers.get(position).second + "");
+        holder.mChances.setBackgroundColor(mSecondaryColor);
+        holder.mChances.setTextColor(mTertiaryColor);
 
         holder.mRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 remove(position);
+                quickSort(mUsers, 0, mUsers.size() - 1, true);
                 notifyDataSetChanged();
             }
         });
@@ -123,42 +131,61 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-    public String getItem(int index){ return mUsers.get(index); }
+    public Pair<String, Integer> getItem(int index){ return mUsers.get(index); }
 
-    private void quickSort(Arraylist<Pair<String, Integer>> list, int lo, int hi, bool chance){
+    private void quickSort(ArrayList<Pair<String, Integer>> list, int lo, int hi, boolean chance){
       if(lo < hi){
-        int p; 
-        if(chance)
-          int p = partitionByChance(list, lo, hi);
+        int p = 0;
+        if(chance) {
+            p = partitionByChance(list, lo, hi);
+        }
+        else {
+            p = partitionByName(list, lo, hi);
+        }
 
-        quicksort(list, lo, p - 1);
-        quickSort(list, p + 1, hi);
+        quickSort(list, lo, p - 1, chance);
+        quickSort(list, p + 1, hi, chance);
       }
     } 
     
-    private int partitionByChance(ArrayList<String, Integer> list, int lo, int hi) {
-      pivot = list.get(hi);
+    private int partitionByChance(ArrayList<Pair<String, Integer>> list, int lo, int hi) {
+      Pair <String, Integer> pivot = list.get(hi);
       int i = lo;
       for (int j = lo; j < hi; j++){
         if(compareByChance(list.get(j), pivot) < 0){
           Pair <String, Integer> holder = list.get(j);
-          list.set(list.get(i), j);
-          list.set(holder, i);
+          list.set(j, list.get(i));
+          list.set(i, holder);
           i = i + 1;
         }
       }
       Pair<String, Integer> holder = list.get(i);
-      list.set(list.get(hi), i);
-      list.set(holder, hi);
+      list.set(i, list.get(hi));
+      list.set(hi, holder);
       return i;
     }
     
-    private compareByChance(Pair<String, Integer> a, Pair <String, Integer> b) {
+    private int compareByChance(Pair<String, Integer> a, Pair <String, Integer> b) {
       if(a.second == b.second)
         return a.first.compareTo(b.first);
-      return(a.second - b.second);
+      return(b.second - a.second);
     }
     
-
+    private int partitionByName(ArrayList<Pair<String, Integer>> list, int lo, int hi){
+        String pivot = list.get(hi).first;
+        int i = lo;
+        for (int j = lo; j < hi; j++){
+            if(list.get(j).first.compareTo(pivot) < 0){
+                Pair <String, Integer> holder = list.get(j);
+                list.set(j, list.get(i));
+                list.set(i, holder);
+                i = i + 1;
+            }
+        }
+        Pair<String, Integer> holder = list.get(i);
+        list.set(i, list.get(hi));
+        list.set(hi, holder);
+        return i;
+    }
 
 }

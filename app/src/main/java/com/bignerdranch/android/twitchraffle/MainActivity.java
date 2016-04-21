@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -149,10 +150,27 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                intent.putExtra("User Count", contestants.size());
-                for (int i = 0; i < contestants.size(); i++) {
-                    intent.putExtra("contestant" + i, contestants.get(i));
+                Collections.sort(contestants);
+                int i = 1;
+                int count = 0;
+                String prev = null;
+
+                /* Puts contestants in intent to be changed into an ArrayList<Pair<String, Integer>>
+                 * The pair is the name of the contestant and their number of chances  */
+                for(String contestant : contestants){
+                    if(contestant.equals(prev)){
+                        i++;
+                    }
+                    else {
+                        prev = contestant;
+                        count++;
+                        i = 1;
+                    }
+                    intent.putExtra("contestant" + count, contestant);
+                    intent.putExtra("chance" + count, i);
                 }
+
+                intent.putExtra("User Count", count);
                 intent.putExtra("theme", theme);
                 startActivityForResult(intent, 0);
             }

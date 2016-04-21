@@ -23,7 +23,7 @@ import java.util.LinkedList;
 
 public class ListActivity extends ActionBarActivity {
 
-    ArrayList<String> users;
+    ArrayList<Pair<String, Integer>> users;
     RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -40,23 +40,26 @@ public class ListActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        users = new ArrayList<String>();
+        users = new ArrayList<Pair<String, Integer>>();
         super.onCreate(savedInstanceState);
         if(savedInstanceState == null) {
             Intent intent = getIntent();
             int size = intent.getIntExtra("User Count", 0);
-            for(int i = 0; i < size; i++){
-                users.add(intent.getStringExtra("contestant" + i));
+            for(int i = 1; i <= size; i++){
+                users.add(new Pair<String, Integer> (
+                        intent.getStringExtra("contestant" + i),
+                        intent.getIntExtra("chance" + i, 0)));
             }
-            Collections.sort(users);
+
             theme = intent.getIntExtra("theme", 0);
         }
         else{
             int size = savedInstanceState.getInt("User Count");
-            for(int i = 0; i < size; i++){
-                users.add(savedInstanceState.getString("contestant" + i));
+            for(int i = 0; i < size; i++) {
+                users.add(new Pair<String, Integer>(
+                        savedInstanceState.getString("contestant" + i),
+                        savedInstanceState.getInt("chance" + i)));
             }
-            Collections.sort(users);
 
             theme = savedInstanceState.getInt("theme");
         }
@@ -84,14 +87,14 @@ public class ListActivity extends ActionBarActivity {
 
 
         undoButton = (Button) findViewById(R.id.undo_button);
-        undoButton.setOnClickListener(new View.OnClickListener() {
+       /* undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!mAdapter.undo()){
                     Toast.makeText(getApplicationContext(), "Nothing to Undo", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        }); */
         undoButton.setBackgroundColor(secondaryColor);
         undoButton.setTextColor(tertiaryColor);
 
@@ -102,7 +105,7 @@ public class ListActivity extends ActionBarActivity {
         textEntry.setTextColor(tertiaryColor);
 
         addButton = (Button) findViewById(R.id.add_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
+       /* addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(textEntry.getText().toString().equals("")){
@@ -113,7 +116,7 @@ public class ListActivity extends ActionBarActivity {
                     textEntry.setText("");
                 }
             }
-        });
+        }); */
 
         addButton.setBackgroundColor(secondaryColor);
         addButton.setTextColor(tertiaryColor);
@@ -151,17 +154,24 @@ public class ListActivity extends ActionBarActivity {
     public void onSaveInstanceState(Bundle savedInstanceState){
         savedInstanceState.putInt("User Count", mAdapter.getItemCount());
         for(int i = 0; i < users.size(); i++){
-            savedInstanceState.putString("contestant" + i, mAdapter.getItem(i));
+            savedInstanceState.putString("contestant" + i,  mAdapter.getItem(i).first);
+            savedInstanceState.putInt("chance" + i, mAdapter.getItem(i).second);
         }
         savedInstanceState.putInt("theme", theme);
     }
 
     public void onBackPressed() {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("User Count", mAdapter.getItemCount());
+        int k = 0;
         for(int i = 0; i < users.size(); i++){
-            returnIntent.putExtra("contestant" + i, mAdapter.getItem(i));
+            String contestant = mAdapter.getItem(i).first;
+            Integer chances = mAdapter.getItem(i).second;
+            for(int j = 0; j < chances; j++){
+                returnIntent.putExtra("contestant" + j, contestant);
+                k++;
+            }
         }
+        returnIntent.putExtra("User Count", k);
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }

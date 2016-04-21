@@ -21,16 +21,21 @@
                 android:src="@drawable/x_red"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp"/>
             <TextView
                 android:id="@+id/user_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:gravity="center_horizontal"
                 android:text="Bah"
-                android:layout_weight="9"/>
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/chances_text_view"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:gravity="center_horizontal"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
