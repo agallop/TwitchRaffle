@@ -23,6 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<Pair<String, Integer>> mUsers;
    // LinkedList<Pair<Boolean, Pair<String, Integer>>> history;
     int mPrimaryColor, mSecondaryColor, mTertiaryColor;
+    boolean chanceSort;
 
 
     // Provide a reference to the views for each data item
@@ -79,7 +80,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(ArrayList<Pair<String, Integer>> users, int primaryColor,int secondaryColor,int tertiaryColor) {
         mUsers = users;
-        quickSort(mUsers, 0, mUsers.size() - 1, true);
+        chanceSort = true;
+        quickSort(mUsers, 0, mUsers.size() - 1);
        // history = new LinkedList<Pair<Boolean, String>>();
         mPrimaryColor = primaryColor;
         mSecondaryColor = secondaryColor;
@@ -114,7 +116,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 remove(position);
-                quickSort(mUsers, 0, mUsers.size() - 1, true);
+                quickSort(mUsers, 0, mUsers.size() - 1);
                 notifyDataSetChanged();
             }
         });
@@ -133,18 +135,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public Pair<String, Integer> getItem(int index){ return mUsers.get(index); }
 
-    private void quickSort(ArrayList<Pair<String, Integer>> list, int lo, int hi, boolean chance){
+    private void quickSort(ArrayList<Pair<String, Integer>> list, int lo, int hi){
       if(lo < hi){
         int p = 0;
-        if(chance) {
+        if(chanceSort) {
             p = partitionByChance(list, lo, hi);
         }
         else {
             p = partitionByName(list, lo, hi);
         }
 
-        quickSort(list, lo, p - 1, chance);
-        quickSort(list, p + 1, hi, chance);
+        quickSort(list, lo, p - 1);
+        quickSort(list, p + 1, hi);
       }
     } 
     

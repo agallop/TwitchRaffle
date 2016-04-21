@@ -31,6 +31,8 @@ public class ListActivity extends ActionBarActivity {
     private LinearLayout headLayout;
     //EditText to input the name to add to the raffle
     private EditText textEntry;
+    // private EditText numberEntry;
+
     //Button to add a name to the raffle
     private Button addButton;
     private FrameLayout viewHolder;
@@ -103,16 +105,26 @@ public class ListActivity extends ActionBarActivity {
         textEntry = (EditText) findViewById(R.id.text_entry);
         textEntry.setBackgroundColor(secondaryColor);
         textEntry.setTextColor(tertiaryColor);
+    
+        /* numberEntry = (EditText) findViewById(R.id.number_entry);
+            numberEntry.setBackgrounfColor(secondaryColor);
+            numberEntry.setTextColor(tertiaryColor);
+        */  
 
         addButton = (Button) findViewById(R.id.add_button);
        /* addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(textEntry.getText().toString().equals("")){
+            String contestant = textEntry.getText.toString();
+            int chances = Integer.valueOf(numberEntry.getTect().toString());
+
+                if(contestant.equals("")){
                     Toast.makeText(ListActivity.this, R.string.noNameError,Toast.LENGTH_SHORT ).show();
+                } else if (chances == 0){
+                    Toast.makeText(ListActivity.this, R.string.noChanceError, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    mAdapter.add(textEntry.getText().toString(), false);
+                    mAdapter.add(new Pair<String, Integer>(contestant, chances));
                     textEntry.setText("");
                 }
             }

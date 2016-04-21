@@ -8,6 +8,7 @@
     <string name="reset">Reset Raffle?</string>
 
     <string name="noNameError">Please enter a username!</string>
+    <string name="noChanceError">Invalid number of chances</string>
     <string name="noContestantError">Raffle is Empty!</string>
 
     <string name ="confirm">Are you sure?</string>
