@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<Pair<String, Integer>> mUsers;
-   // LinkedList<Pair<Boolean, Pair<String, Integer>>> history;
+    // LinkedList<Pair<Boolean, Pair<String, Integer>>> history;
     int mPrimaryColor, mSecondaryColor, mTertiaryColor;
     boolean chanceSort;
 
@@ -45,14 +46,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-   /* public void add(Pair<String, Integer> user, Boolean undo) {
-        if(!undo){
-            history.push(new Pair<Boolean, Pair<String, Integer>>(true, user));
-        }
-        mUsers.add(user);
-        quickSort(mUsers, 0, mUsers.size(), true);
-        notifyDataSetChanged();
-    } */
+    /* public void add(Pair<String, Integer> user, Boolean undo) {
+         if(!undo){
+             history.push(new Pair<Boolean, Pair<String, Integer>>(true, user));
+         }
+         mUsers.add(user);
+         quickSort(mUsers, 0, mUsers.size(), true);
+         notifyDataSetChanged();
+     } */
   /*  public boolean undo(){
         if(history.isEmpty()){
             return false;
@@ -66,23 +67,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             return true;
         }
     } */
-    private void remove(String user){
+    private void remove(String user) {
         mUsers.remove(user);
         notifyDataSetChanged();
     }
 
     public void remove(int position) {
-     /*  String user = */ mUsers.remove(position);
-     //  history.push(new Pair<Boolean, String>(false, user));
+     /*  String user = */
+        mUsers.remove(position);
+        //  history.push(new Pair<Boolean, String>(false, user));
         notifyDataSetChanged();
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<Pair<String, Integer>> users, int primaryColor,int secondaryColor,int tertiaryColor) {
+    public MyAdapter(ArrayList<Pair<String, Integer>> users, int primaryColor, int secondaryColor, int tertiaryColor) {
         mUsers = users;
         chanceSort = true;
-        quickSort(mUsers, 0, mUsers.size() - 1);
-       // history = new LinkedList<Pair<Boolean, String>>();
+        quickSort(0, mUsers.size() - 1);
+        // history = new LinkedList<Pair<Boolean, String>>();
         mPrimaryColor = primaryColor;
         mSecondaryColor = secondaryColor;
         mTertiaryColor = tertiaryColor;
@@ -116,7 +118,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 remove(position);
-                quickSort(mUsers, 0, mUsers.size() - 1);
+                quickSort(0, mUsers.size() - 1);
                 notifyDataSetChanged();
             }
         });
@@ -133,61 +135,78 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-    public Pair<String, Integer> getItem(int index){ return mUsers.get(index); }
-
-    private void quickSort(ArrayList<Pair<String, Integer>> list, int lo, int hi){
-      if(lo < hi){
-        int p = 0;
-        if(chanceSort) {
-            p = partitionByChance(list, lo, hi);
-        }
-        else {
-            p = partitionByName(list, lo, hi);
-        }
-
-        quickSort(list, lo, p - 1);
-        quickSort(list, p + 1, hi);
-      }
-    } 
-    
-    private int partitionByChance(ArrayList<Pair<String, Integer>> list, int lo, int hi) {
-      Pair <String, Integer> pivot = list.get(hi);
-      int i = lo;
-      for (int j = lo; j < hi; j++){
-        if(compareByChance(list.get(j), pivot) < 0){
-          Pair <String, Integer> holder = list.get(j);
-          list.set(j, list.get(i));
-          list.set(i, holder);
-          i = i + 1;
-        }
-      }
-      Pair<String, Integer> holder = list.get(i);
-      list.set(i, list.get(hi));
-      list.set(hi, holder);
-      return i;
+    public Pair<String, Integer> getItem(int index) {
+        return mUsers.get(index);
     }
-    
-    private int compareByChance(Pair<String, Integer> a, Pair <String, Integer> b) {
-      if(a.second == b.second)
-        return a.first.compareTo(b.first);
-      return(b.second - a.second);
+
+    private void quickSort(int lo, int hi) {
+        if (lo < hi) {
+            int p = 0;
+            if (chanceSort) {
+                p = partitionByChance(lo, hi);
+            } else {
+                p = partitionByName(lo, hi);
+            }
+
+            quickSort(lo, p - 1);
+            quickSort(p + 1, hi);
+        }
     }
-    
-    private int partitionByName(ArrayList<Pair<String, Integer>> list, int lo, int hi){
-        String pivot = list.get(hi).first;
+
+    private int partitionByChance(int lo, int hi) {
+        Pair<String, Integer> pivot = mUsers.get(hi);
         int i = lo;
-        for (int j = lo; j < hi; j++){
-            if(list.get(j).first.compareTo(pivot) < 0){
-                Pair <String, Integer> holder = list.get(j);
-                list.set(j, list.get(i));
-                list.set(i, holder);
+        for (int j = lo; j < hi; j++) {
+            if (compareByChance(mUsers.get(j), pivot) < 0) {
+                Pair<String, Integer> holder = mUsers.get(j);
+                mUsers.set(j, mUsers.get(i));
+                mUsers.set(i, holder);
                 i = i + 1;
             }
         }
-        Pair<String, Integer> holder = list.get(i);
-        list.set(i, list.get(hi));
-        list.set(hi, holder);
+        Pair<String, Integer> holder = mUsers.get(i);
+        mUsers.set(i, mUsers.get(hi));
+        mUsers.set(hi, holder);
         return i;
     }
 
+    private int compareByChance(Pair<String, Integer> a, Pair<String, Integer> b) {
+        if (a.second == b.second)
+            return a.first.compareTo(b.first);
+        return (b.second - a.second);
+    }
+
+    private int partitionByName(int lo, int hi) {
+        String pivot = mUsers.get(hi).first.toLowerCase();
+        int i = lo;
+        for (int j = lo; j < hi; j++) {
+            if (mUsers.get(j).first.toLowerCase().compareTo(pivot) < 0) {
+                Pair<String, Integer> holder = mUsers.get(j);
+                mUsers.set(j, mUsers.get(i));
+                mUsers.set(i, holder);
+                i = i + 1;
+            }
+        }
+        Pair<String, Integer> holder = mUsers.get(i);
+        mUsers.set(i, mUsers.get(hi));
+        mUsers.set(hi, holder);
+        return i;
+    }
+
+    Pair<String, Integer> binarySearch(String target, int lo, int hi) {
+        if (lo > hi)
+            return null;
+        int mid = (lo + hi) / 2;
+        int comparison = target.toLowerCase().compareTo(mUsers.get(mid).first.toLowerCase());
+        if (comparison == 0) {
+            //found
+            return mUsers.get(mid);
+        } else if (comparison > 0) {
+            //front half
+            return binarySearch(target, lo, mid - 1);
+
+        }
+        //back half
+        return binarySearch(target, mid + 1, hi);
+    }
 }
