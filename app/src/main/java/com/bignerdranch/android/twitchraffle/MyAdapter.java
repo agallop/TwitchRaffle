@@ -46,14 +46,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    /* public void add(Pair<String, Integer> user, Boolean undo) {
-         if(!undo){
-             history.push(new Pair<Boolean, Pair<String, Integer>>(true, user));
-         }
-         mUsers.add(user);
-         quickSort(mUsers, 0, mUsers.size(), true);
+    public void add(Pair<String, Integer> user, Boolean undo) {
+        Pair <String, Integer> contestant;
+         if(chanceSort)
+             contestant = sequentalSearch(user.first);
+        else
+             contestant = binarySearch(user.first, 0, mUsers.size());
+        if(contestant != null) {
+            user = new Pair<String, Integer>(user.first, user.second + contestant.second)
+            ;mUsers.remove(contestant);
+            mUsers.add(user);
+        } else {
+            mUsers.add(user);
+        }
+        quickSort(0, mUsers.size());
          notifyDataSetChanged();
-     } */
+     }
   /*  public boolean undo(){
         if(history.isEmpty()){
             return false;
@@ -208,5 +216,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
         //back half
         return binarySearch(target, mid + 1, hi);
+    }
+
+    Pair<String, Integer> sequentalSearch(String target){
+        int size = mUsers.size();
+        for(int i = 0; i < size; i++){
+            Pair<String , Integer> current = mUsers.get(i);
+            if(current.first.compareTo(target) == 0){
+                return current;
+            }
+        }
+
+        return null;
     }
 }
