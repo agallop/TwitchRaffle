@@ -2,6 +2,7 @@ package com.bignerdranch.android.twitchraffle;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.annotation.Target;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,14 +59,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         else
              contestant = binarySearch(user.first, 0, mUsers.size());
         if(contestant != null) {
-            user = new Pair<String, Integer>(user.first, user.second + contestant.second)
-            ;mUsers.remove(contestant);
+            user = new Pair<String, Integer>(user.first, user.second + contestant.second);
+            mUsers.remove(contestant);
             mUsers.add(user);
         } else {
             mUsers.add(user);
         }
-        quickSort(0, mUsers.size());
-         notifyDataSetChanged();
+        int size = mUsers.size();
+        quickSort(0, (size - 1));
+        notifyDataSetChanged();
      }
   /*  public boolean undo(){
         if(history.isEmpty()){
