@@ -65,8 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             mUsers.add(user);
         }
-        int size = mUsers.size();
-        quickSort(0, (size - 1));
+        quickSort(0, mUsers.size() - 1);
         notifyDataSetChanged();
      }
   /*  public boolean undo(){
